@@ -1,9 +1,8 @@
-package model;
+package com.soundify.api.soundifyapi.model;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import model.Song;
-import java.lang.annotation.Documented;
+
 import java.util.*;
 
 @Document

@@ -1,5 +1,5 @@
-package model;
-import model.Album;
+package com.soundify.api.soundifyapi.model;
+
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,7 +11,7 @@ public class Artist {
     @DBRef
     private String artistName;
     private ArrayList<Album> albums = new ArrayList<Album>();
-    private ArrayList<Song> songs = new ArrayList<Songs>();
+    private ArrayList<Song> songs = new ArrayList<Song>();
 
     public Artist() {
     }
