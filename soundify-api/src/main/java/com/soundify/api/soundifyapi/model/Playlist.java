@@ -1,14 +1,18 @@
 package com.soundify.api.soundifyapi.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+@Document(collection = "playlists")
 public class Playlist {
 
     private String playlistName;
     private ArrayList<Song> songs;
     private Date createdAt;
     private Date modifiedAt;
+
 
     public Playlist() {
     }
