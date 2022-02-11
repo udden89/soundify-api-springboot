@@ -1,4 +1,4 @@
-package com.soundify.api.soundifyapi.security;
+/*package com.soundify.api.soundifyapi.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,4 +25,4 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/perform_logout")
                 .deleteCookies("JSESSIONID");
     }
-}
+}*/
