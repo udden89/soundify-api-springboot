@@ -2,6 +2,7 @@ package com.soundify.api.soundifyapi.model;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public class Song {
 
     @DBRef
     private String name;
-    private ArrayList<Artist> artists = new ArrayList<Artist>();
+    private ArrayList<Artist> artist;
     private ArrayList<String> thumbnails;
     private Album album;
     private Integer duration;
@@ -22,7 +23,7 @@ public class Song {
 
     public Song(String name, ArrayList<Artist> artists, ArrayList<String> thumbnails, Album album, Integer duration, String params, String type) {
         this.name = name;
-        this.artists = artists;
+        this.artist = artists;
         this.thumbnails = thumbnails;
         this.album = album;
         this.duration = duration;
@@ -38,12 +39,12 @@ public class Song {
         this.name = name;
     }
 
-    public ArrayList<Artist> getArtists() {
-        return artists;
+    public ArrayList<Artist> getArtist() {
+        return artist;
     }
 
-    public void setArtists(ArrayList<Artist> artists) {
-        this.artists = artists;
+    public void setArtist(ArrayList<Artist> artist) {
+        this.artist = artist;
     }
 
     public ArrayList<String> getThumbnails() {
@@ -90,7 +91,7 @@ public class Song {
     public String toString() {
         return "Song{" +
                 "name='" + name + '\'' +
-                ", artists=" + artists +
+                ", artists=" + artist +
                 ", thumbnails=" + thumbnails +
                 ", album=" + album +
                 ", duration=" + duration +

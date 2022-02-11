@@ -10,8 +10,8 @@ public class Artist {
 
     @DBRef
     private String artistName;
-    private ArrayList<Album> albums = new ArrayList<Album>();
-    private ArrayList<Song> songs = new ArrayList<Song>();
+    private ArrayList<Album> albums;
+    private ArrayList<Song> songs;
 
     public Artist() {
     }
