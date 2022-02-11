@@ -1,5 +1,6 @@
 package com.soundify.api.soundifyapi.model;
 
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -7,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.ArrayList;
 
 @Document
+@Data
 public class Song {
 
     @DBRef
@@ -29,74 +31,5 @@ public class Song {
         this.duration = duration;
         this.params = params;
         this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<Artist> getArtist() {
-        return artist;
-    }
-
-    public void setArtist(ArrayList<Artist> artist) {
-        this.artist = artist;
-    }
-
-    public ArrayList<String> getThumbnails() {
-        return thumbnails;
-    }
-
-    public void setThumbnails(ArrayList<String> thumbnails) {
-        this.thumbnails = thumbnails;
-    }
-
-    public Album getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(Album album) {
-        this.album = album;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public String getParams() {
-        return params;
-    }
-
-    public void setParams(String params) {
-        this.params = params;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    @Override
-    public String toString() {
-        return "Song{" +
-                "name='" + name + '\'' +
-                ", artists=" + artist +
-                ", thumbnails=" + thumbnails +
-                ", album=" + album +
-                ", duration=" + duration +
-                ", params='" + params + '\'' +
-                ", type='" + type + '\'' +
-                '}';
     }
 }

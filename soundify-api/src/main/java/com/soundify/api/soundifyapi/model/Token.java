@@ -1,7 +1,9 @@
 package com.soundify.api.soundifyapi.model;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 
+@Data
 public class Token {
 
     @Id
@@ -10,18 +12,6 @@ public class Token {
 
     public Token(String token) {
 
-        this.token = token;
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
         this.token = token;
     }
 }

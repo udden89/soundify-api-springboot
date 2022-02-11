@@ -1,9 +1,11 @@
 package com.soundify.api.soundifyapi.model;
 
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.ArrayList;
 
+@Data
 public class ReturnUser {
 
     @DBRef
@@ -18,38 +20,5 @@ public class ReturnUser {
         this.userName = userName;
         this.playlists = playlists;
         this.email = email;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public ArrayList<Playlist> getPlaylists() {
-        return playlists;
-    }
-
-    public void setPlaylists(ArrayList<Playlist> playlists) {
-        this.playlists = playlists;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "ReturnUser{" +
-                "userName='" + userName + '\'' +
-                ", playlists=" + playlists +
-                ", email='" + email + '\'' +
-                '}';
     }
 }

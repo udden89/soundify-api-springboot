@@ -1,11 +1,13 @@
 package com.soundify.api.soundifyapi.model;
 
+import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
 
 @Document
+@Data
 public class Album {
 
     @DBRef
@@ -20,27 +22,4 @@ public class Album {
         this.songs = songs;
     }
 
-    public Artist getArtist() {
-        return artist;
-    }
-
-    public void setArtist(Artist artist) {
-        this.artist = artist;
-    }
-
-    public ArrayList<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(ArrayList<Song> songs) {
-        this.songs = songs;
-    }
-
-    @Override
-    public String toString() {
-        return "Album{" +
-                "artist=" + artist +
-                ", songs=" + songs +
-                '}';
-    }
 }
