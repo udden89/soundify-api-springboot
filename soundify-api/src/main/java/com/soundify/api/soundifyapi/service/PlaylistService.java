@@ -6,6 +6,8 @@ import com.soundify.api.soundifyapi.repository.PlaylistRepository;
 import com.soundify.api.soundifyapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +28,7 @@ public class PlaylistService {
         playlistRepository.insert(playlist);
     }
 
-    public void updatePlaylist( Playlist playlist){
+    public void updatePlaylist(Playlist playlist){
         Playlist savedPlaylist = playlistRepository.findById(playlist.get_id()).orElseThrow(() -> new RuntimeException(
                 String.format("Cannot find playlist by ID %s" , playlist.get_id())));
         savedPlaylist.setSongs(playlist.getSongs());
@@ -38,7 +40,15 @@ public class PlaylistService {
         return playlistRepository.findAll();
     }
 
-    public void getPlaylist(){ }
 
-    public void deletePlaylist(){ }
+    public Playlist getPlaylistById(String id){
+        return playlistRepository.findById(id).orElseThrow(() -> new RuntimeException(
+                String.format("Cannot find playlist by name %s", id)
+        ));
+
+    }
+
+    public void deletePlaylist(String id){
+         playlistRepository.deleteById(id);
+    }
 }

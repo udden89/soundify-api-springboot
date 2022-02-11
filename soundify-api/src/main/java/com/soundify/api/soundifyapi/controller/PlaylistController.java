@@ -1,15 +1,17 @@
 package com.soundify.api.soundifyapi.controller;
 
 import com.soundify.api.soundifyapi.model.Playlist;
+import com.soundify.api.soundifyapi.model.User;
 import com.soundify.api.soundifyapi.service.PlaylistService;
 import com.soundify.api.soundifyapi.service.UserService;
-import org.apache.coyote.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/playlist")
@@ -17,10 +19,12 @@ public class PlaylistController {
 
     @Autowired
     private final PlaylistService playlistService;
+    private final UserService userService;
 
 
-    public PlaylistController(PlaylistService playlistService) {
+    public PlaylistController(PlaylistService playlistService, UserService userService) {
         this.playlistService = playlistService;
+        this.userService = userService;
 
     }
 
@@ -31,18 +35,31 @@ public class PlaylistController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity updatePlaylist(@RequestBody Playlist playlist){
-    playlistService.updatePlaylist(playlist);
-    return ResponseEntity.ok().build();
-    }
+    public void updatePlaylist(){ }
 
     @GetMapping("/getall")
     public ResponseEntity<List<Playlist>> getAllPlaylist(){
        return ResponseEntity.ok(playlistService.getAllPlaylists());
     }
 
-    public void getPlaylist(){ }
+    //Unsure if this route has any worth to us.
+    @GetMapping("/user/{id}")
+    public ResponseEntity getUserPlaylist(@PathVariable String id){
+        Optional<User> currentUser = userService.findUser(id);
+        List<String> currentUserPlaylist = currentUser.get().getPlaylists();
 
-    public void deletePlaylist(){ }
+        return ResponseEntity.ok(currentUserPlaylist);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Playlist> getPlaylistById(@PathVariable String id){
+        return ResponseEntity.ok(playlistService.getPlaylistById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletePlaylist(@PathVariable String id){
+        playlistService.deletePlaylist(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 }
