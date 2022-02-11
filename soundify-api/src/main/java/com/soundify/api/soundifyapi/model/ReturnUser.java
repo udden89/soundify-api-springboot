@@ -1,9 +1,12 @@
 package com.soundify.api.soundifyapi.model;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
 import java.util.ArrayList;
 
 public class ReturnUser {
 
+    @DBRef
     private String userName;
     private ArrayList<Playlist> playlists;
     private String email;

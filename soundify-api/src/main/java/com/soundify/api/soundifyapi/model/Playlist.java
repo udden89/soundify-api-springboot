@@ -1,6 +1,8 @@
 package com.soundify.api.soundifyapi.model;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +10,9 @@ import java.util.Date;
 @Document(collection = "playlists")
 public class Playlist {
 
+    @Id
+    private String _id;
+    @Field(name="playlist_name")
     private String playlistName;
     private ArrayList<Song> songs;
     private Date createdAt;
@@ -17,12 +22,16 @@ public class Playlist {
     public Playlist() {
     }
 
-    public Playlist(String playlistName, ArrayList<Song> songs, Date createdAt, Date modifiedAt) {
+    public Playlist(String _id, String playlistName, ArrayList<Song> songs, Date createdAt, Date modifiedAt) {
         this.playlistName = playlistName;
         this.songs = songs;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }
+
+    public String get_id() { return _id; }
+
+    public void set_id(String _id) { this._id = _id; }
 
     public String getPlaylistName() {
         return playlistName;
@@ -59,7 +68,8 @@ public class Playlist {
     @Override
     public String toString() {
         return "Playlist{" +
-                "playlistName='" + playlistName + '\'' +
+                "_id='" + _id + '\'' +
+                ", playlistName='" + playlistName + '\'' +
                 ", songs=" + songs +
                 ", createdAt=" + createdAt +
                 ", modifiedAt=" + modifiedAt +
