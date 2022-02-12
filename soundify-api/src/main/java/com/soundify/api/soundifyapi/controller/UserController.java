@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -21,20 +21,16 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+    @GetMapping
+    public List<User> getAllUsers() {
+        return  userService.getAllUsers();
+    }
 
-    @PostMapping("/api/user/add")
+    @PostMapping("/add")
     public void addUser(@RequestBody User user) {
         userService.addUser(user);
     }
 
-    @PostMapping("/api/user/register")
-    public Optional<User> registerUser(@RequestBody User user) {
-        System.out.println(user);
-        return userService.addUser(user);
-    }
 
-    @GetMapping("/api/user")
-    public List<User> getAllUsers() {
-       return  userService.getAllUsers();
-    }
+
 }
