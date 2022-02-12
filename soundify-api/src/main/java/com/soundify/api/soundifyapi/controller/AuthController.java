@@ -1,6 +1,8 @@
 package com.soundify.api.soundifyapi.controller;
 import javax.validation.Valid;
 
+
+import com.soundify.api.soundifyapi.dto.UserDTO;
 import com.soundify.api.soundifyapi.model.User;
 import com.soundify.api.soundifyapi.payloads.request.LoginRequest;
 import com.soundify.api.soundifyapi.payloads.request.SignupRequest;
@@ -9,6 +11,7 @@ import com.soundify.api.soundifyapi.payloads.response.UserInfoResponse;
 import com.soundify.api.soundifyapi.repository.UserRepository;
 import com.soundify.api.soundifyapi.security.jwt.JwtUtils;
 import com.soundify.api.soundifyapi.security.services.UserDetailsImpl;
+import com.soundify.api.soundifyapi.service.MapperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -19,8 +22,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -34,6 +35,10 @@ public class AuthController {
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
+    @Autowired
+    MapperService mapperService;
+
+
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
@@ -70,19 +75,11 @@ public class AuthController {
                 .body(new MessageResponse("You've been signed out!"));
     }
     @GetMapping("/whoami")
-    /*public Map<String, Object> whoami(@AuthenticationPrincipal User user) {
-        System.out.println(user);
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("id", user.get_id());
-        model.put("username", user.getUsername());
-        model.put("playlist", user.getPlaylists());
-        return model;
-    }*/
     @ResponseBody
-    public ResponseEntity<String> currentUserName(Authentication authentication) {
-        //System.out.println(authentication.getName());
-        //System.out.println(authentication.get);
-        //System.out.println(authentication.getDetails());
-        return ResponseEntity.ok().body(authentication.getName());
+    public UserDTO currentUserName(Authentication authentication) {
+        var user = userRepository.findByUsername(authentication.getName());
+        var userDTO = mapperService.UserToDTO(user);
+        System.out.println(userDTO);
+        return userDTO;
     }
 }
