@@ -1,4 +1,4 @@
-/*package com.soundify.api.soundifyapi.security;
+package com.soundify.api.soundifyapi.security;
 
 import com.soundify.api.soundifyapi.security.jwt.AuthEntryPointJwt;
 import com.soundify.api.soundifyapi.security.jwt.AuthTokenFilter;
@@ -63,4 +63,4 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/test/**").permitAll();
         http.addFilterBefore((Filter) authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-}*/
+}

@@ -1,6 +1,8 @@
 package com.soundify.api.soundifyapi.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Reference;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -11,10 +13,13 @@ import java.util.ArrayList;
 @Data
 public class Song {
 
-    @DBRef
+    @Id
+    private String _id;
     private String name;
-    private ArrayList<Artist> artist;
-    private ArrayList<String> thumbnails;
+    @Reference
+    private Artist artist;
+    private ArrayList<Thumbnail> thumbnails;
+    @Reference
     private Album album;
     private Integer duration;
     private String params;
@@ -23,7 +28,7 @@ public class Song {
     public Song() {
     }
 
-    public Song(String name, ArrayList<Artist> artists, ArrayList<String> thumbnails, Album album, Integer duration, String params, String type) {
+    public Song(String name, Artist artists, ArrayList<Thumbnail> thumbnails, Album album, Integer duration, String params, String type) {
         this.name = name;
         this.artist = artists;
         this.thumbnails = thumbnails;
@@ -32,4 +37,6 @@ public class Song {
         this.params = params;
         this.type = type;
     }
+
+
 }

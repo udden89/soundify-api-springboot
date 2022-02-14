@@ -1,6 +1,7 @@
 package com.soundify.api.soundifyapi.controller;
 
 import com.soundify.api.soundifyapi.model.Playlist;
+import com.soundify.api.soundifyapi.model.Song;
 import com.soundify.api.soundifyapi.model.User;
 import com.soundify.api.soundifyapi.service.PlaylistService;
 import com.soundify.api.soundifyapi.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,15 +30,18 @@ public class PlaylistController {
 
     }
 
-    @PostMapping("/add")
+    @PostMapping("/createplaylist")
     public ResponseEntity addPlaylist(@RequestBody Playlist playlist){
         playlistService.addPlaylist(playlist);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/update")
-    public void updatePlaylist(){ }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Optional<Playlist>> updatePlaylist(@PathVariable String id, @RequestBody Song song){
+        return ResponseEntity.ok(playlistService.updatePlaylist(id, song));
+    }
 
+    //Get all playlists that exists
     @GetMapping("/getall")
     public ResponseEntity<List<Playlist>> getAllPlaylist(){
        return ResponseEntity.ok(playlistService.getAllPlaylists());
@@ -46,7 +51,7 @@ public class PlaylistController {
     @GetMapping("/user/{id}")
     public ResponseEntity getUserPlaylist(@PathVariable String id){
         Optional<User> currentUser = userService.findUser(id);
-        List<String> currentUserPlaylist = currentUser.get().getPlaylists();
+        ArrayList<Playlist> currentUserPlaylist = currentUser.get().getPlaylists();
 
         return ResponseEntity.ok(currentUserPlaylist);
     }
@@ -56,7 +61,7 @@ public class PlaylistController {
         return ResponseEntity.ok(playlistService.getPlaylistById(id));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("deleteplaylist/{id}")
     public ResponseEntity deletePlaylist(@PathVariable String id){
         playlistService.deletePlaylist(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

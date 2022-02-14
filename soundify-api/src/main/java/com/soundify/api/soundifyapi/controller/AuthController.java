@@ -7,7 +7,6 @@ import com.soundify.api.soundifyapi.model.User;
 import com.soundify.api.soundifyapi.payloads.request.LoginRequest;
 import com.soundify.api.soundifyapi.payloads.request.SignupRequest;
 import com.soundify.api.soundifyapi.payloads.response.MessageResponse;
-import com.soundify.api.soundifyapi.payloads.response.UserInfoResponse;
 import com.soundify.api.soundifyapi.repository.UserRepository;
 import com.soundify.api.soundifyapi.security.jwt.JwtUtils;
 import com.soundify.api.soundifyapi.security.services.UserDetailsImpl;

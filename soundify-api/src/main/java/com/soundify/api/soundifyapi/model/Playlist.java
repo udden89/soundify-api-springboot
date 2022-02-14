@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "playlists")
 @Data
@@ -20,7 +21,7 @@ public class Playlist {
     @Field(name="playlist_name")
     private String playlist_name;
     @Reference
-    private ArrayList<Song> songs;
+    private List<Song> songs;
     @CreatedDate
     private Date createdAt;
     @LastModifiedDate
@@ -35,5 +36,9 @@ public class Playlist {
         this.playlist_name = playlistName;
         this.songs = songs;
 
+    }
+
+    public void addSong(Song song){
+        songs.add(song);
     }
 }
