@@ -14,6 +14,7 @@ public class Album {
 
     @Id
     private String _id;
+    private String name;
     private Artist artist;
     @Reference
     private ArrayList<Song> songs;
@@ -21,9 +22,10 @@ public class Album {
     public Album() {
     }
 
-    public Album(Artist artist, ArrayList<Song> songs) {
+    public Album(Artist artist, ArrayList<Song> songs, String name) {
         this.artist = artist;
         this.songs = songs;
+        this.name = name;
     }
 
 }

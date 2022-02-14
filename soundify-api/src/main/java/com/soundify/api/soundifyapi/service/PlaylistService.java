@@ -32,8 +32,8 @@ public class PlaylistService {
 
     //update playlist (add a song)
     public Optional<Playlist> updatePlaylist(String id, Song song){
-        return playlistRepository.findById(id).map(playlist -> {
-           playlist.addSong(song);
+        return playlistRepository.findById(id).map((playlist) -> {
+            playlist.addSong(song);
            return playlistRepository.save(playlist);
         });
     }
