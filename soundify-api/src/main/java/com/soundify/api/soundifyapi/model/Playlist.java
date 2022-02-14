@@ -1,7 +1,10 @@
 package com.soundify.api.soundifyapi.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Reference;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -15,19 +18,21 @@ public class Playlist {
     @Id
     private String _id;
     @Field(name="playlist_name")
-    private String playlistName;
-    private ArrayList<Song> songs;
+    private String playlist_name;
+    @Reference
+    private ArrayList<Song>  songs = new ArrayList<>();
+    @CreatedDate
     private Date createdAt;
+    @LastModifiedDate
     private Date modifiedAt;
 
 
     public Playlist() {
     }
 
-    public Playlist(String playlistName, ArrayList<Song> songs, Date createdAt, Date modifiedAt) {
-        this.playlistName = playlistName;
-        this.songs = songs;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
+    public Playlist(String playlist_name) {
+        this.playlist_name = playlist_name;
     }
+
+
 }

@@ -17,8 +17,9 @@ public class PlaylistService {
         this.playlistRepository= playlistRepository;
     }
 
-    public void addPlaylist(Playlist playlist){
-        playlistRepository.insert(playlist);
+    public Playlist addPlaylist(Playlist playlist){
+
+        return playlistRepository.insert(playlist);
     }
 
     public void updatePlaylist(){ }
