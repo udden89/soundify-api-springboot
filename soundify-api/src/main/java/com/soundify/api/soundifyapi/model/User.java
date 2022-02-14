@@ -3,7 +3,10 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Reference;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -13,20 +16,34 @@ public class User {
 
     @Id
     private String _id;
-    private String user_name;
+    @Field("user_name")
+    private String username;
     private String email;
     private String password;
     private ArrayList<Token> tokens;
-    private ArrayList<String> playlists;
+    @Reference
+    private ArrayList<Playlist> playlists;
     @CreatedDate
     private Date createdAt;
     @LastModifiedDate
     private Date modifiedAt;
 
-    public User(String user_name, String email, String password) {
-        this.user_name = user_name;
+    public User(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public ArrayList<Playlist> getPlaylists() {
+        return playlists;
     }
 }
 
