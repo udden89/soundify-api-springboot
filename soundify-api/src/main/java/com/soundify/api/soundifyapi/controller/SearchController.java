@@ -2,6 +2,7 @@ package com.soundify.api.soundifyapi.controller;
 
 import com.soundify.api.soundifyapi.model.Song;
 import com.soundify.api.soundifyapi.model.User;
+import com.soundify.api.soundifyapi.service.SearchService;
 import com.soundify.api.soundifyapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,30 +11,20 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/search")
+@RequestMapping("/api")
 public class SearchController {
 
-    //private final SearchService searchService;
+    private final SearchService searchService;
 
     @Autowired
     public SearchController(SearchService searchService) {
         this.searchService = searchService;
     }
 
-    @PostMapping("/api/user/add")
-    public void addUser(@RequestBody User user) {
-        userService.addUser(user);
-    }
+    @GetMapping("/search")
+    public void getAllUsers() {
 
-    @PostMapping("/api/user/register")
-    public Optional<User> registerUser(@RequestBody User user) {
-        System.out.println(user);
-        return userService.addUser(user);
-    }
-
-    @GetMapping(":mediaType")
-    public List<Song> getAllUsers() {
-        return  userService.getAllUsers();
+        return ;
     }
 
 
