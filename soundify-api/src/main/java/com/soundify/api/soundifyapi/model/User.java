@@ -22,6 +22,7 @@ public class User {
     private String email;
     private String password;
     private ArrayList<Token> tokens;
+    @Reference
     private List<Playlist> playlists;
     @CreatedDate
     private Date createdAt;
