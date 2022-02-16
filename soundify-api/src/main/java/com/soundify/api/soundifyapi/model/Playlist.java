@@ -4,7 +4,6 @@ import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.Reference;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -31,14 +30,12 @@ public class Playlist {
     public Playlist() {
     }
 
-
     public Playlist(String playlistName, List<Song> songs) {
         this.playlist_name = playlistName;
         this.songs = songs;
-
     }
-
     public void addSong(Song song){
         this.songs.add(song);
     }
+
 }

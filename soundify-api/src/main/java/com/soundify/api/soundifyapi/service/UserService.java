@@ -38,4 +38,8 @@ public class UserService {
         System.out.println(list);
         return userRepository.findAll();
     }
+
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 }

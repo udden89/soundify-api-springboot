@@ -2,18 +2,16 @@ package com.soundify.api.soundifyapi.controller;
 
 import com.soundify.api.soundifyapi.model.Playlist;
 import com.soundify.api.soundifyapi.model.Song;
-import com.soundify.api.soundifyapi.model.User;
 import com.soundify.api.soundifyapi.service.PlaylistService;
 import com.soundify.api.soundifyapi.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/playlist")
@@ -31,9 +29,9 @@ public class PlaylistController {
     }
 
     @PostMapping("/createplaylist")
-    public ResponseEntity addPlaylist(@RequestBody Playlist playlist){
-        playlistService.addPlaylist(playlist);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity addPlaylist(@RequestBody Playlist playlist, Authentication authentication ){
+        return ResponseEntity.ok(playlistService.addPlaylist(playlist, authentication));
+
     }
 
     //add a song to a playlist
@@ -68,5 +66,4 @@ public class PlaylistController {
         playlistService.deletePlaylist(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
 }

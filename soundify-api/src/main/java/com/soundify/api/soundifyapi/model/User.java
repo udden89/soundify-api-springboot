@@ -22,7 +22,6 @@ public class User {
     private String email;
     private String password;
     private ArrayList<Token> tokens;
-    @Reference
     private List<Playlist> playlists;
     @CreatedDate
     private Date createdAt;
@@ -45,6 +44,13 @@ public class User {
 
     public List<Playlist> getPlaylists() {
         return playlists;
+    }
+
+    public void setPlaylists(ArrayList<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+    public void addPlaylist(Playlist playlist){
+        this.playlists.add(playlist);
     }
 }
 
