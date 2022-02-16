@@ -25,16 +25,9 @@ public class PlaylistController {
     UserRepository userRepository;
 
 
-
-
-    @PostMapping("/add")
-    public ResponseEntity addPlaylist(@RequestBody Playlist playlist, Authentication authentication){
-        Optional<User> user = userRepository.findByUsername(authentication.getName());
-        var newPlaylist = playlistService.addPlaylist(playlist);
-        user.get().addPlaylist(newPlaylist);
-        User user1 = userRepository.save(user.get());
-        UserDTO userDTO = new UserDTO(user1.get_id(), user1.getUsername(), user1.getPlaylists());
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDTO);
+    @PostMapping("/createplaylist")
+    public ResponseEntity addPlaylist(@RequestBody Playlist playlist, Authentication authentication ){
+        return ResponseEntity.ok(playlistService.addPlaylist(playlist, authentication));
     }
 
     public void updatePlaylist(){ }
