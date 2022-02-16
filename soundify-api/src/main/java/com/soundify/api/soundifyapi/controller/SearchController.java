@@ -16,11 +16,10 @@ public class SearchController {
     @GetMapping("/{mediaType}")
     public String searchMusicAPI(@RequestParam(name="query") String query,
                                  @RequestParam(name="next") Optional<String> next,
-                                 @RequestParam(name="mediaType") Optional<String> mediaType) {
+                                 @PathVariable(value="mediaType") String mediaType) {
 
-        String type = mediaType.isPresent() ? mediaType.get() : "search";
-        String nextQuery = next.isPresent() ? "?next=" + next : "";
-        String result = searchService.fetch(type, query, nextQuery);
+        String nextQuery = next.isPresent() ? "?next=" + next.get() : "";
+        String result = searchService.fetch(mediaType, query, nextQuery);
 
         return result;
     }
