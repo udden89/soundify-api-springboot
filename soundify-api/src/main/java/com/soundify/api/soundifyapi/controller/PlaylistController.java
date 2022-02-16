@@ -36,9 +36,10 @@ public class PlaylistController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    //add a song to a playlist
     @PutMapping("/update/{id}")
-    public ResponseEntity<Optional<Playlist>> updatePlaylist(@PathVariable String id, @RequestBody Song song){
-        return ResponseEntity.ok(playlistService.updatePlaylist(id, song));
+    public ResponseEntity <Playlist> updatePlaylist(@PathVariable String id, @RequestBody Song song){
+       return ResponseEntity.ok(playlistService.updatePlaylist(id, song));
     }
 
     //Get all playlists that exists
@@ -48,13 +49,14 @@ public class PlaylistController {
     }
 
     //Unsure if this route has any worth to us.
-    @GetMapping("/user/{id}")
+
+/*    @GetMapping("/user/{id}")
     public ResponseEntity getUserPlaylist(@PathVariable String id){
         Optional<User> currentUser = userService.findUser(id);
-        ArrayList<Playlist> currentUserPlaylist = currentUser.get().getPlaylists();
+       List<Playlist> currentUserPlaylist = currentUser.get().getPlaylists();
 
         return ResponseEntity.ok(currentUserPlaylist);
-    }
+    }*/
 
     @GetMapping("/{id}")
     public ResponseEntity<Playlist> getPlaylistById(@PathVariable String id){

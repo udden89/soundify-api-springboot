@@ -7,35 +7,29 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.ArrayList;
 
-@Document
 @Data
 public class Song {
 
-    @Id
-    private String _id;
+
     private String name;
-    @Reference
-    private Artist artist;
-    private ArrayList<Thumbnail> thumbnails;
-    @Reference
-    private Album album;
+  //private ArrayList<Thumbnail> thumbnails;
     private Integer duration;
-    private String params;
-    private String type;
+    private String videoId;
 
     public Song() {
     }
 
-    public Song(String name, Artist artists, ArrayList<Thumbnail> thumbnails, Album album, Integer duration, String params, String type) {
+    public Song(String name,Integer duration,String videoId) {
         this.name = name;
-        this.artist = artists;
-        this.thumbnails = thumbnails;
-        this.album = album;
+
+        //this.thumbnails = thumbnails;
+        this.videoId = videoId;
         this.duration = duration;
-        this.params = params;
-        this.type = type;
+
     }
 
 

@@ -31,26 +31,29 @@ public class PlaylistService {
     }
 
     //update playlist (add a song)
-    public Optional<Playlist> updatePlaylist(String id, Song song){
-        return playlistRepository.findById(id).map((playlist) -> {
-            playlist.addSong(song);
-           return playlistRepository.save(playlist);
-        });
+    public Playlist updatePlaylist(String id, Song song){
+        var playlist = playlistRepository.findById(id).get();
+        System.out.println(playlist);
+        var songList = playlist.getSongs();
+        songList.add(song);
+        System.out.println("------------");
+        System.out.println(songList);
+        System.out.println("11111111");
+        System.out.println(playlist);
+        return playlistRepository.save(playlist);
     }
+
     //get all playlists that exists in the collection
     public List<Playlist> getAllPlaylists(){
         return playlistRepository.findAll();
     }
-
 
     //Get a specific playlist by ID
     public Playlist getPlaylistById(String id){
         return playlistRepository.findById(id).orElseThrow(() -> new RuntimeException(
                 String.format("Cannot find playlist by name %s", id)
         ));
-
     }
-
     //Delete a playlist by ID
     public void deletePlaylist(String id){
          playlistRepository.deleteById(id);

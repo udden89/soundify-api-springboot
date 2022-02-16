@@ -21,7 +21,8 @@ public class Playlist {
     @Field(name="playlist_name")
     private String playlist_name;
     @Reference
-    private List<Song> songs;
+    @Field("songs")
+    private List<Song> songs = new ArrayList<>();
     @CreatedDate
     private Date createdAt;
     @LastModifiedDate
@@ -32,7 +33,7 @@ public class Playlist {
     }
 
 
-    public Playlist(String playlistName, ArrayList<Song> songs) {
+    public Playlist(String playlistName, List<Song> songs) {
         this.playlist_name = playlistName;
         this.songs = songs;
 
