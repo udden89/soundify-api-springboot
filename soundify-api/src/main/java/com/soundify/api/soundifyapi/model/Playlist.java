@@ -20,7 +20,6 @@ public class Playlist {
     private String _id;
     @Field(name="playlist_name")
     private String playlist_name;
-    @Reference
     @Field("songs")
     private List<Song> songs = new ArrayList<>();
     @CreatedDate

@@ -32,15 +32,13 @@ public class PlaylistService {
 
     //update playlist (add a song)
     public Playlist updatePlaylist(String id, Song song){
-        var playlist = playlistRepository.findById(id).get();
-        System.out.println(playlist);
-        var songList = playlist.getSongs();
-        songList.add(song);
-        System.out.println("------------");
-        System.out.println(songList);
-        System.out.println("11111111");
-        System.out.println(playlist);
-        return playlistRepository.save(playlist);
+        Playlist savedPlaylist = null;
+        Optional <Playlist>  chosenPlaylist = playlistRepository.findById(id);
+        chosenPlaylist.get().addSong(song);
+        if( chosenPlaylist.isPresent()){
+            savedPlaylist =  playlistRepository.save(chosenPlaylist.get());    
+        }
+        return savedPlaylist;
     }
 
     //get all playlists that exists in the collection

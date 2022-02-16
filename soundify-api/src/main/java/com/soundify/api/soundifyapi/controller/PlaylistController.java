@@ -38,7 +38,7 @@ public class PlaylistController {
 
     //add a song to a playlist
     @PutMapping("/update/{id}")
-    public ResponseEntity <Playlist> updatePlaylist(@PathVariable String id, @RequestBody Song song){
+    public ResponseEntity<Playlist> updatePlaylist(@PathVariable String id, @RequestBody Song song){
        return ResponseEntity.ok(playlistService.updatePlaylist(id, song));
     }
 
