@@ -7,7 +7,6 @@ import com.soundify.api.soundifyapi.model.User;
 import com.soundify.api.soundifyapi.payloads.request.LoginRequest;
 import com.soundify.api.soundifyapi.payloads.request.SignupRequest;
 import com.soundify.api.soundifyapi.payloads.response.MessageResponse;
-import com.soundify.api.soundifyapi.payloads.response.UserInfoResponse;
 import com.soundify.api.soundifyapi.repository.UserRepository;
 import com.soundify.api.soundifyapi.security.jwt.JwtUtils;
 import com.soundify.api.soundifyapi.security.services.UserDetailsImpl;
@@ -41,8 +40,9 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        System.out.println(loginRequest);
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);

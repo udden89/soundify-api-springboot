@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "users")
 @Data
@@ -22,7 +23,7 @@ public class User {
     private String password;
     private ArrayList<Token> tokens;
     @Reference
-    private ArrayList<Playlist> playlists = new ArrayList<>();
+    private List<Playlist> playlists;
     @CreatedDate
     private Date createdAt;
     @LastModifiedDate
@@ -42,7 +43,7 @@ public class User {
         return username;
     }
 
-    public ArrayList<Playlist> getPlaylists() {
+    public List<Playlist> getPlaylists() {
         return playlists;
     }
 
