@@ -41,9 +41,10 @@ public class PlaylistService {
     public Playlist updatePlaylist(String id, Song song){
         Playlist savedPlaylist = null;
         Optional <Playlist>  chosenPlaylist = playlistRepository.findById(id);
-        chosenPlaylist.get().addSong(song);
+
         if( chosenPlaylist.isPresent()){
-            savedPlaylist =  playlistRepository.save(chosenPlaylist.get());    
+            chosenPlaylist.get().addSong(song);
+            savedPlaylist =  playlistRepository.save(chosenPlaylist.get());
         }
         return savedPlaylist;
     }

@@ -22,7 +22,6 @@ public class SearchService {
     public String getFromHeroku(String mediaType, String query, String next) {
 
         String path = heroku + mediaType + "/";
-        System.out.println(path);
         path = path + query + next ;
 
         String responseJson = webClientBuilder.build()
