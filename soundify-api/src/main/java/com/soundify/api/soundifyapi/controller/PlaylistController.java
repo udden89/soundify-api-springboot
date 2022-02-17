@@ -1,5 +1,6 @@
 package com.soundify.api.soundifyapi.controller;
 
+import com.soundify.api.soundifyapi.dto.DeleteIdDTO;
 import com.soundify.api.soundifyapi.model.Playlist;
 import com.soundify.api.soundifyapi.model.Song;
 import com.soundify.api.soundifyapi.service.PlaylistService;
@@ -62,8 +63,13 @@ public class PlaylistController {
     }
 
     @DeleteMapping("deleteplaylist/{id}")
-    public ResponseEntity deletePlaylist(@PathVariable String id){
-        playlistService.deletePlaylist(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    @ResponseBody
+    public ResponseEntity<DeleteIdDTO> deletePlaylist(@PathVariable String id) {
+        try {
+            playlistService.deletePlaylist(id);
+            return ResponseEntity.ok(new DeleteIdDTO(id));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
