@@ -65,15 +65,17 @@ public class PlaylistService {
        playlistRepository.deleteById(id);
     }
 
-    public void deleteSongFromPlaylist(String playlistId, String id){
-        System.out.println("From service");
-       var result = playlistRepository.findById(playlistId).map(playlist ->{
-            playlist.getSongs()
-                    .removeIf(song -> song.getVideoId()
-                            .equals(id));
-            return playlist;
-        });
+    public void deleteSongFromPlaylist(String playlistId, String songId){
+        var selectedPlaylist = playlistRepository.findById(playlistId).get();
 
-        System.out.println(result.get());
+        var songList = selectedPlaylist.getSongs()
+                .stream()
+                .filter(song -> !song.getVideoId()
+                        .equals(songId))
+                .collect(Collectors.toList());
+
+        selectedPlaylist.setSongs(songList);
+        playlistRepository.save(selectedPlaylist);
+
     }
 }

@@ -1,6 +1,7 @@
 package com.soundify.api.soundifyapi.controller;
 
 import com.soundify.api.soundifyapi.dto.DeleteIdDTO;
+import com.soundify.api.soundifyapi.dto.DeleteSongFromListDTO;
 import com.soundify.api.soundifyapi.model.Playlist;
 import com.soundify.api.soundifyapi.model.Song;
 import com.soundify.api.soundifyapi.service.PlaylistService;
@@ -66,13 +67,11 @@ public class PlaylistController {
     }
 
     @DeleteMapping("/delete/{playlistId}/{songId}")
-    public ResponseEntity<?> deleteSongFromPlaylist(@PathVariable String playlistId,
+    public ResponseEntity<DeleteSongFromListDTO> deleteSongFromPlaylist(@PathVariable String playlistId,
                                                     @PathVariable String songId) {
         try {
-            System.out.println(playlistId);
-            System.out.println(songId);
             playlistService.deleteSongFromPlaylist(playlistId ,songId);
-            return ResponseEntity.ok("End of the line");
+            return ResponseEntity.ok(new DeleteSongFromListDTO(songId));
         } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

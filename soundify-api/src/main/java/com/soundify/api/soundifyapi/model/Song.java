@@ -22,6 +22,4 @@ public class Song {
         this.duration = duration;
 
     }
-
-
 }
