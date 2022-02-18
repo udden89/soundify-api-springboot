@@ -20,6 +20,7 @@ public class PlaylistController {
 
     @Autowired
     private final PlaylistService playlistService;
+    @Autowired
     private final UserService userService;
 
 
@@ -47,15 +48,6 @@ public class PlaylistController {
        return ResponseEntity.ok(playlistService.getAllPlaylists());
     }
 
-    //Unsure if this route has any worth to us.
-
-/*    @GetMapping("/user/{id}")
-    public ResponseEntity getUserPlaylist(@PathVariable String id){
-        Optional<User> currentUser = userService.findUser(id);
-       List<Playlist> currentUserPlaylist = currentUser.get().getPlaylists();
-
-        return ResponseEntity.ok(currentUserPlaylist);
-    }*/
 
     @GetMapping("/{id}")
     public ResponseEntity<Playlist> getPlaylistById(@PathVariable String id){
@@ -69,6 +61,19 @@ public class PlaylistController {
             playlistService.deletePlaylist(id);
             return ResponseEntity.ok(new DeleteIdDTO(id));
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/delete/{playlistId}/{songId}")
+    public ResponseEntity<?> deleteSongFromPlaylist(@PathVariable String playlistId,
+                                                    @PathVariable String songId) {
+        try {
+            System.out.println(playlistId);
+            System.out.println(songId);
+            playlistService.deleteSongFromPlaylist(playlistId ,songId);
+            return ResponseEntity.ok("End of the line");
+        } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PlaylistService {
@@ -62,5 +63,17 @@ public class PlaylistService {
     //Delete a playlist by ID
     public void deletePlaylist(String id){
        playlistRepository.deleteById(id);
+    }
+
+    public void deleteSongFromPlaylist(String playlistId, String id){
+        System.out.println("From service");
+       var result = playlistRepository.findById(playlistId).map(playlist ->{
+            playlist.getSongs()
+                    .removeIf(song -> song.getVideoId()
+                            .equals(id));
+            return playlist;
+        });
+
+        System.out.println(result.get());
     }
 }
