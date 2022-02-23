@@ -1,6 +1,7 @@
 package com.soundify.api.soundifyapi.controller;
 
 import com.soundify.api.soundifyapi.dto.DeleteIdDTO;
+import com.soundify.api.soundifyapi.dto.DeleteSongFromListDTO;
 import com.soundify.api.soundifyapi.model.Playlist;
 import com.soundify.api.soundifyapi.model.Song;
 import com.soundify.api.soundifyapi.service.PlaylistService;
@@ -20,19 +21,16 @@ public class PlaylistController {
 
     @Autowired
     private final PlaylistService playlistService;
-    private final UserService userService;
 
 
-    public PlaylistController(PlaylistService playlistService, UserService userService) {
+    public PlaylistController(PlaylistService playlistService) {
         this.playlistService = playlistService;
-        this.userService = userService;
-
     }
 
+    //create a playlist
     @PostMapping("/createplaylist")
     public ResponseEntity addPlaylist(@RequestBody Playlist playlist, Authentication authentication ){
         return ResponseEntity.ok(playlistService.addPlaylist(playlist, authentication));
-
     }
 
     //add a song to a playlist
@@ -47,16 +45,7 @@ public class PlaylistController {
        return ResponseEntity.ok(playlistService.getAllPlaylists());
     }
 
-    //Unsure if this route has any worth to us.
-
-/*    @GetMapping("/user/{id}")
-    public ResponseEntity getUserPlaylist(@PathVariable String id){
-        Optional<User> currentUser = userService.findUser(id);
-       List<Playlist> currentUserPlaylist = currentUser.get().getPlaylists();
-
-        return ResponseEntity.ok(currentUserPlaylist);
-    }*/
-
+    //Get playlist with playlistID
     @GetMapping("/{id}")
     public ResponseEntity<Playlist> getPlaylistById(@PathVariable String id){
         return ResponseEntity.ok(playlistService.getPlaylistById(id));
@@ -69,6 +58,17 @@ public class PlaylistController {
             playlistService.deletePlaylist(id);
             return ResponseEntity.ok(new DeleteIdDTO(id));
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/delete/{playlistId}/{songId}")
+    public ResponseEntity<DeleteSongFromListDTO> deleteSongFromPlaylist(@PathVariable String playlistId,
+                                                    @PathVariable String songId) {
+        try {
+            playlistService.deleteSongFromPlaylist(playlistId ,songId);
+            return ResponseEntity.ok(new DeleteSongFromListDTO(songId));
+        } catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

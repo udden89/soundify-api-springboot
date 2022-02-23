@@ -3,14 +3,13 @@ package com.soundify.api.soundifyapi.dto;
 import lombok.Data;
 
 @Data
-public class DeleteIdDTO {
-
+public class DeleteSongFromListDTO {
     private String id;
 
-    public DeleteIdDTO() {
+    public DeleteSongFromListDTO() {
     }
 
-    public DeleteIdDTO(String id) {
+    public DeleteSongFromListDTO(String id) {
         this.id = id;
     }
 }
