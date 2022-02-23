@@ -21,20 +21,16 @@ public class PlaylistController {
 
     @Autowired
     private final PlaylistService playlistService;
-    @Autowired
-    private final UserService userService;
 
 
-    public PlaylistController(PlaylistService playlistService, UserService userService) {
+    public PlaylistController(PlaylistService playlistService) {
         this.playlistService = playlistService;
-        this.userService = userService;
-
     }
 
+    //create a playlist
     @PostMapping("/createplaylist")
     public ResponseEntity addPlaylist(@RequestBody Playlist playlist, Authentication authentication ){
         return ResponseEntity.ok(playlistService.addPlaylist(playlist, authentication));
-
     }
 
     //add a song to a playlist
@@ -49,7 +45,7 @@ public class PlaylistController {
        return ResponseEntity.ok(playlistService.getAllPlaylists());
     }
 
-
+    //Get playlist with playlistID
     @GetMapping("/{id}")
     public ResponseEntity<Playlist> getPlaylistById(@PathVariable String id){
         return ResponseEntity.ok(playlistService.getPlaylistById(id));
