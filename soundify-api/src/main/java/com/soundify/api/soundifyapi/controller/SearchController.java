@@ -19,8 +19,7 @@ public class SearchController {
                                  @PathVariable(value="mediaType") String mediaType) {
 
         String nextQuery = next.isPresent() ? "?next=" + next.get() : "";
-        String result = searchService.fetch(mediaType, query, nextQuery);
 
-        return result;
+        return searchService.fetch(mediaType, query, nextQuery);
     }
 }

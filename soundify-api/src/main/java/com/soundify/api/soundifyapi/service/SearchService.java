@@ -24,13 +24,12 @@ public class SearchService {
         String path = heroku + mediaType + "/";
         path = path + query + next ;
 
-        String responseJson = webClientBuilder.build()
+        return webClientBuilder.build()
                 .get()
                 .uri(path)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
-        return responseJson;
     }
 
 

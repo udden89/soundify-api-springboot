@@ -11,29 +11,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UserDetailsImpl implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
-    private String id;
-    private String username;
-    private String email;
-    private String password;
+    private final String id;
+    private final String username;
+    private final String password;
 
-    public UserDetailsImpl(String id, String username, String email, String password) {
+    public UserDetailsImpl(String id, String username,String password) {
         this.id = id;
         this.username = username;
-        this.email = email;
         this.password = password;
     }
+
     public static UserDetailsImpl build(User user) {
         return new UserDetailsImpl(
                 user.get_id(),
                 user.getUsername(),
-                user.getEmail(),
                 user.getPassword());
     }
+
     public String getId() {
         return id;
-    }
-    public String getEmail() {
-        return email;
     }
 
     @Override

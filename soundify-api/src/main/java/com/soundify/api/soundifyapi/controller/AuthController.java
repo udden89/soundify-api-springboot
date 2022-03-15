@@ -22,7 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/user")
 public class AuthController {
@@ -42,9 +41,9 @@ public class AuthController {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         System.out.println(loginRequest);
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
         var user = userRepository.findByUsername(userDetails.getUsername());
         var userDTO = mapperService.UserToDTO(user);
@@ -53,7 +52,6 @@ public class AuthController {
     }
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        System.out.println("register");
         if (userRepository.existsByUsername(signUpRequest.getUser_name())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
         }
@@ -76,10 +74,10 @@ public class AuthController {
     }
     @GetMapping("/whoami")
     @ResponseBody
-    public UserDTO currentUserName(Authentication authentication) {
+    public ResponseEntity<?>  currentUserName(Authentication authentication) {
+        if(authentication == null)
+            return ResponseEntity.ok().body(new MessageResponse("No user logged in"));
         var user = userRepository.findByUsername(authentication.getName());
-        var userDTO = mapperService.UserToDTO(user);
-        System.out.println(userDTO);
-        return userDTO;
+        return ResponseEntity.ok().body(mapperService.UserToDTO(user));
     }
 }

@@ -2,7 +2,7 @@ package com.soundify.api.soundifyapi.security;
 
 import com.soundify.api.soundifyapi.security.jwt.AuthEntryPointJwt;
 import com.soundify.api.soundifyapi.security.jwt.AuthTokenFilter;
-import com.soundify.api.soundifyapi.security.services.UserDetailsServiceImpl;
+import com.soundify.api.soundifyapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,12 +28,12 @@ import javax.servlet.Filter;
         prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserService userService;
     @Autowired
     private final AuthEntryPointJwt unauthorizedHandler;
 
-    public ApplicationSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
-        this.userDetailsService = userDetailsService;
+    public ApplicationSecurityConfig(UserService userService, AuthEntryPointJwt unauthorizedHandler) {
+        this.userService = userService;
         this.unauthorizedHandler = unauthorizedHandler;
     }
 
@@ -43,7 +43,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(userService).passwordEncoder(passwordEncoder());
     }
     @Bean
     @Override
@@ -60,7 +60,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint((AuthenticationEntryPoint) unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/user/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
+                .antMatchers("/api/playlist/**").permitAll()
                 .antMatchers("/api/search/**").permitAll();
                 //.anyRequest().authenticated();
         http.addFilterBefore((Filter) authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

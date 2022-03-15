@@ -5,7 +5,6 @@ import com.soundify.api.soundifyapi.dto.DeleteSongFromListDTO;
 import com.soundify.api.soundifyapi.model.Playlist;
 import com.soundify.api.soundifyapi.model.Song;
 import com.soundify.api.soundifyapi.service.PlaylistService;
-import com.soundify.api.soundifyapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,7 @@ public class PlaylistController {
     }
 
     //create a playlist
-    @PostMapping("/createplaylist")
+    @PostMapping("/add")
     public ResponseEntity addPlaylist(@RequestBody Playlist playlist, Authentication authentication ){
         return ResponseEntity.ok(playlistService.addPlaylist(playlist, authentication));
     }
