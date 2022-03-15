@@ -27,7 +27,7 @@ public class PlaylistController {
     }
 
     //create a playlist
-    @PostMapping("/add")
+    @PostMapping("/createplaylist")
     public ResponseEntity addPlaylist(@RequestBody Playlist playlist, Authentication authentication ){
         return ResponseEntity.ok(playlistService.addPlaylist(playlist, authentication));
     }
