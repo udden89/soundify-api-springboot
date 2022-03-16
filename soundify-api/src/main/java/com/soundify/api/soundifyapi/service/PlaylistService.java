@@ -21,11 +21,9 @@ public class PlaylistService {
     UserRepository userRepository;
     @Autowired
     private final PlaylistRepository playlistRepository;
-    private final UserService userService;
 
-    public PlaylistService(PlaylistRepository playlistRepository , UserService userService) {
+    public PlaylistService(PlaylistRepository playlistRepository) {
         this.playlistRepository= playlistRepository;
-        this.userService = userService;
     }
 
     public UserDTO addPlaylist(Playlist playlist, Authentication authentication){
@@ -33,8 +31,7 @@ public class PlaylistService {
         var newPlaylist = playlistRepository.insert(playlist);
         user.get().addPlaylist(newPlaylist);
         User user1 = userRepository.save(user.get());
-        UserDTO userDTO = new UserDTO(user1.get_id(), user1.getUsername(), user1.getPlaylists());
-        return userDTO;
+        return new UserDTO(user1.get_id(), user1.getUsername(), user1.getPlaylists());
     }
 
     //update playlist (add a song)

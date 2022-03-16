@@ -23,8 +23,8 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    public void save(User user) {
-         userRepository.save(user);
+    public User save(User user) {
+       return userRepository.save(user);
     }
 
     public Boolean existsByUsername(String username){

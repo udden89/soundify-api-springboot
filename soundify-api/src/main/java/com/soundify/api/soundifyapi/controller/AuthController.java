@@ -2,7 +2,7 @@ package com.soundify.api.soundifyapi.controller;
 import javax.validation.Valid;
 
 
-
+import com.soundify.api.soundifyapi.dto.UserDTO;
 import com.soundify.api.soundifyapi.model.User;
 import com.soundify.api.soundifyapi.payloads.request.LoginRequest;
 import com.soundify.api.soundifyapi.payloads.request.SignupRequest;
@@ -63,11 +63,13 @@ public class AuthController {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        userService.save(user);
-
+        User user1 = userService.save(user);
+        System.out.println(user1);
+        UserDTO userDTO = mapperService.UserToDTO(java.util.Optional.of(user1));
+        System.out.println(userDTO );
         var jwtCookie = authService.setAuthentication(signUpRequest.getUsername(), signUpRequest.getPassword());
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(new MessageResponse("User registered successfully!"));
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString()).body(userDTO);
     }
     @PostMapping("/logout")
     public ResponseEntity<?> logoutUser() {

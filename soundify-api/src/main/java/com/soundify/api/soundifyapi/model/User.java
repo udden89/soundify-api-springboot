@@ -23,7 +23,7 @@ public class User {
     private String password;
     private ArrayList<Token> tokens;
     @Reference
-    private List<Playlist> playlists;
+    private List<Playlist> playlists = new ArrayList<>();
     @CreatedDate
     private Date createdAt;
     @LastModifiedDate
