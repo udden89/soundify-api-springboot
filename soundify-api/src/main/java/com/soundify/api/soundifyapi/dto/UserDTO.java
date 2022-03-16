@@ -10,7 +10,7 @@ import java.util.List;
 public class UserDTO {
 
     private String id;
-    private String user_name;
+    private String username;
     private List<Playlist> playlists;
 
     public UserDTO() {
@@ -18,7 +18,7 @@ public class UserDTO {
 
     public UserDTO(String id, String username, List<Playlist> playlists) {
         this.id = id;
-        this.user_name = username;
+        this.username = username;
         this.playlists = playlists;
     }
 

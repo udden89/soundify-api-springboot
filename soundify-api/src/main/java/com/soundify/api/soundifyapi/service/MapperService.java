@@ -12,7 +12,7 @@ public class MapperService {
     public UserDTO UserToDTO(Optional<User> user) {
         var u = user.get();
         UserDTO userDTO = new UserDTO();
-        userDTO.setUser_name(u.getUsername());
+        userDTO.setUsername(u.getUsername());
         userDTO.setId(u.get_id());
         userDTO.setPlaylists(u.getPlaylists());
         return userDTO;

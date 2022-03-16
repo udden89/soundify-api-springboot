@@ -22,6 +22,7 @@ public class JwtUtils {
     private int jwtExpirationMs;
     @Value("${spring.data.jwtCookieName}")
     private String jwtCookie;
+
     public String getJwtFromCookies(HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         if (cookie != null) {

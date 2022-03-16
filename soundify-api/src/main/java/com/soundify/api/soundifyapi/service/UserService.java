@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,23 +23,20 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    public Optional<User> findUser(String id) {
-        return userRepository.findById(id);
+    public void save(User user) {
+         userRepository.save(user);
     }
 
-
-    public Optional<User> addUser(User user) {
-        var id = userRepository.insert(user).get_id();
-        return findUser(id);
+    public Boolean existsByUsername(String username){
+        return userRepository.existsByUsername(username);
     }
 
-    public List<User> getAllUsers() {
-        List<User> list = userRepository.findAll() ;
-        return userRepository.findAll();
+    public Boolean existsByEmail(String username){
+        return userRepository.existsByEmail(username);
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public Optional<User> findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
 
     @Override
